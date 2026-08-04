@@ -1,0 +1,16 @@
+{
+  "id": "dining-kitchen-renovation",
+  "title": {
+    "en": "Dining & Kitchen Renovation",
+    "es": "Renovación de comedor y cocina",
+    "uk": "Ремонт їдальні та кухні"
+  },
+  "city": "Greater Cleveland, Ohio",
+  "category": "Interior Renovation",
+  "description": {
+    "en": "Interior renovation with flooring, painting, lighting, trim, and finish carpentry.",
+    "es": "Renovación interior con piso, pintura, iluminación, molduras y carpintería de acabado.",
+    "uk": "Ремонт інтер’єру з підлогою, фарбуванням, освітленням, оздобленням і столярними роботами."
+  },
+  "image": "projects/2026-08-dining-kitchen-renovation/hero.jpg"
+}

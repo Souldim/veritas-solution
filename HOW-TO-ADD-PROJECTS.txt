@@ -1,0 +1,101 @@
+VERITAS SOLUTION LLC — HOW TO ADD PROJECT PHOTOS
+
+FILES YOU WILL USE
+- projects.json
+- projects/ folder
+- content-v5.js for phone and email
+
+HOW TO ADD A NEW PROJECT
+
+1. CREATE A PROJECT FOLDER
+Inside the projects folder create a new folder.
+
+Use lowercase English letters, numbers, and hyphens only.
+
+Example:
+2026-08-storm-door-parma
+
+2. ADD THE PHOTO
+Copy the best project photo into that folder and name it:
+
+hero.jpg
+
+Example:
+projects/
+  2026-08-storm-door-parma/
+    hero.jpg
+
+You can also keep extra photos in the same folder:
+1.jpg
+2.jpg
+before.jpg
+after.jpg
+
+The current gallery displays hero.jpg. Extra photos remain organized for future use.
+
+3. EDIT projects.json IN VISUAL STUDIO CODE
+
+Open projects.json.
+
+Before the final closing bracket ] add a comma after the previous project,
+then paste:
+
+{
+  "id": "storm-door-parma",
+  "image": "projects/2026-08-storm-door-parma/hero.jpg",
+  "title": {
+    "en": "Storm Door Installation",
+    "es": "Instalación de puerta contra tormentas",
+    "uk": "Встановлення штормових дверей"
+  },
+  "city": "Parma, Ohio",
+  "category": "Doors",
+  "description": {
+    "en": "Installed a new storm door with trim and weather sealing.",
+    "es": "Instalación de una nueva puerta contra tormentas con molduras y sellado.",
+    "uk": "Встановлено нові штормові двері з оздобленням і герметизацією."
+  }
+}
+
+4. CHECK JSON
+Be careful:
+- Every text value must be in double quotation marks.
+- Projects are separated by commas.
+- Do not put a comma after the final project.
+
+5. PUBLISH
+Open GitHub Desktop.
+
+Summary:
+Add storm door project
+
+Click:
+Commit to main
+Push origin
+
+Wait 1–3 minutes and refresh the website.
+
+HOW TO CHANGE EMAIL OR PHONE
+
+Open content-v5.js.
+
+At the very top edit only:
+
+const BUSINESS = {
+  name: 'Veritas Solution LLC',
+  phoneDisplay: '216-214-4720',
+  phoneLink: '+12162144720',
+  email: 'veritassolutionllc@gmail.com'
+};
+
+HOW TO REPLACE THE MAIN BACKGROUND
+
+Replace:
+projects/2026-08-entryway-accent-wall/hero.jpg
+
+Use the same file name.
+
+IMPORTANT
+GitHub Pages is a static website. It cannot automatically discover new folders.
+You must add one record to projects.json for each new project.
+This keeps the site completely free and secure.
