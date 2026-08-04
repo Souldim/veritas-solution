@@ -1,395 +1,287 @@
 <!doctype html>
 <html lang="ru">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Veritas Project Manager</title>
-  <style>
-    :root{
-      --navy:#102333;
-      --navy2:#1c394d;
-      --gold:#b78a35;
-      --paper:#f4f6f7;
-      --text:#172430;
-      --muted:#657582;
-      --border:#dfe5e8;
-    }
-    *{box-sizing:border-box}
-    body{margin:0;font-family:Arial,Helvetica,sans-serif;background:var(--paper);color:var(--text);line-height:1.5}
-    header{background:linear-gradient(135deg,var(--navy),var(--navy2));color:white;padding:28px 20px}
-    header .wrap,main{width:min(980px,calc(100% - 28px));margin:auto}
-    h1{margin:0 0 5px;font-size:30px}
-    header p{margin:0;color:#d7e1e7}
-    main{padding:30px 0 50px}
-    .panel{background:white;border:1px solid var(--border);border-radius:14px;padding:22px;margin-bottom:18px}
-    h2{margin:0 0 16px;color:var(--navy);font-size:21px}
-    .grid{display:grid;grid-template-columns:1fr 1fr;gap:15px}
-    .full{grid-column:1/-1}
-    label{display:block;font-weight:700;font-size:14px;color:#2c3f4e}
-    input,select,textarea{
-      width:100%;margin-top:6px;border:1px solid #cbd5db;border-radius:8px;
-      padding:11px 12px;font:inherit;background:white
-    }
-    textarea{min-height:90px;resize:vertical}
-    input[type=file]{padding:9px}
-    .hint{font-size:13px;color:var(--muted);margin:5px 0 0}
-    .stage{border:1px dashed #b9c5cb;border-radius:10px;padding:15px;margin-top:12px}
-    .stage strong{color:var(--navy)}
-    .actions{display:flex;gap:12px;flex-wrap:wrap}
-    button{
-      border:0;border-radius:8px;padding:13px 19px;font-weight:800;cursor:pointer;font-size:15px
-    }
-    .primary{background:var(--gold);color:white}
-    .secondary{background:var(--navy);color:white}
-    .ghost{background:#e9eef1;color:var(--navy)}
-    button:disabled{opacity:.5;cursor:not-allowed}
-    .status{margin-top:15px;padding:13px;border-radius:8px;display:none}
-    .status.ok{display:block;background:#e9f7ef;color:#176238}
-    .status.error{display:block;background:#fdecec;color:#912f2f}
-    code{background:#edf1f3;padding:2px 5px;border-radius:4px}
-    .summary{display:none}
-    .summary.show{display:block}
-    ul{margin-bottom:0}
-    @media(max-width:700px){
-      .grid{grid-template-columns:1fr}
-      .full{grid-column:auto}
-    }
-  </style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Veritas Project Publisher</title>
+<style>
+:root{--navy:#102333;--navy2:#1c394d;--gold:#b78a35;--paper:#f4f6f7;--text:#172430;--muted:#657582;--border:#dfe5e8;--green:#176238;--red:#912f2f}
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,Helvetica,sans-serif;background:var(--paper);color:var(--text);line-height:1.5}
+header{background:linear-gradient(135deg,var(--navy),var(--navy2));color:#fff;padding:28px 20px}
+header .wrap,main{width:min(980px,calc(100% - 28px));margin:auto}
+h1{margin:0 0 5px;font-size:30px} header p{margin:0;color:#d7e1e7}
+main{padding:30px 0 50px}
+.panel{background:#fff;border:1px solid var(--border);border-radius:14px;padding:22px;margin-bottom:18px}
+h2{margin:0 0 16px;color:var(--navy);font-size:21px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:15px}.full{grid-column:1/-1}
+label{display:block;font-weight:700;font-size:14px;color:#2c3f4e}
+input,select,textarea{width:100%;margin-top:6px;border:1px solid #cbd5db;border-radius:8px;padding:11px 12px;font:inherit;background:#fff}
+textarea{min-height:88px;resize:vertical}.hint{font-size:13px;color:var(--muted);margin:5px 0 0}
+.stage{border:1px dashed #b9c5cb;border-radius:10px;padding:15px;margin-top:12px}.stage strong{color:var(--navy)}
+.actions{display:flex;gap:12px;flex-wrap:wrap}
+button{border:0;border-radius:8px;padding:13px 19px;font-weight:800;cursor:pointer;font-size:15px}
+.primary{background:var(--gold);color:#fff}.secondary{background:var(--navy);color:#fff}.ghost{background:#e9eef1;color:var(--navy)}
+button:disabled{opacity:.5;cursor:not-allowed}
+.status{margin-top:15px;padding:13px;border-radius:8px;display:none;white-space:pre-wrap}
+.status.ok{display:block;background:#e9f7ef;color:var(--green)}
+.status.error{display:block;background:#fdecec;color:var(--red)}
+.status.busy{display:block;background:#eaf2f8;color:#244c66}
+code{background:#edf1f3;padding:2px 5px;border-radius:4px}
+.security{border-left:5px solid var(--gold)}
+.security strong{color:var(--navy)}
+.progress{height:10px;background:#e8edef;border-radius:99px;overflow:hidden;margin-top:12px;display:none}
+.progress span{display:block;height:100%;width:0;background:var(--gold);transition:width .25s}
+@media(max-width:700px){.grid{grid-template-columns:1fr}.full{grid-column:auto}}
+</style>
 </head>
 <body>
-<header>
-  <div class="wrap">
-    <h1>Veritas Project Manager</h1>
-    <p>Создание проекта с фотографиями «до / процесс / после» без ручного редактирования JSON.</p>
-  </div>
-</header>
+<header><div class="wrap">
+<h1>Veritas Project Publisher</h1>
+<p>Добавление проекта и публикация на GitHub одной кнопкой.</p>
+</div></header>
 
 <main>
-  <section class="panel">
-    <h2>1. Загрузить текущий projects.json</h2>
-    <label>
-      Текущий файл projects.json
-      <input id="projectsFile" type="file" accept=".json,application/json">
-    </label>
-    <p class="hint">Файл находится в корневой папке <code>veritas-solution</code>. Страница добавит новый проект и создаст обновлённую копию.</p>
-  </section>
+<section class="panel security">
+<h2>1. Подключение к GitHub</h2>
+<p><strong>Токен вводится только на этой странице и не сохраняется.</strong> Он остаётся в памяти браузера до закрытия вкладки.</p>
+<div class="grid">
+<label>GitHub owner<input id="owner" value="souldim"></label>
+<label>Repository<input id="repo" value="veritas-solution"></label>
+<label>Branch<input id="branch" value="main"></label>
+<label>Fine-grained token<input id="token" type="password" autocomplete="off" placeholder="github_pat_..."></label>
+</div>
+<p class="hint">Токен должен иметь доступ только к репозиторию <code>veritas-solution</code> и разрешение <strong>Contents: Read and write</strong>.</p>
+<div class="actions" style="margin-top:14px">
+<button id="testBtn" class="secondary" type="button">Проверить подключение</button>
+</div>
+</section>
 
-  <section class="panel">
-    <h2>2. Информация о проекте</h2>
-    <div class="grid">
-      <label>
-        Название папки
-        <input id="folder" placeholder="2026-09-storm-door-parma">
-        <span class="hint">Только английские буквы, цифры и дефисы.</span>
-      </label>
+<section class="panel">
+<h2>2. Информация о проекте</h2>
+<div class="grid">
+<label>Название папки<input id="folder" placeholder="2026-09-storm-door-parma"><span class="hint">Только английские буквы, цифры и дефисы.</span></label>
+<label>Город<input id="city" placeholder="Parma, Ohio"></label>
+<label>Категория<select id="category"><option>Doors</option><option>Windows</option><option>Drywall</option><option>Interior Finish</option><option>Interior Renovation</option><option>Property Maintenance</option><option>Commercial</option><option>General Repair</option></select></label>
+<label>ID проекта<input id="projectId" placeholder="storm-door-parma"></label>
+<label class="full">Название — English<input id="titleEn" placeholder="Storm Door Installation"></label>
+<label>Название — Español<input id="titleEs"></label>
+<label>Название — Українська<input id="titleUk"></label>
+<label class="full">Описание — English<textarea id="descriptionEn"></textarea></label>
+<label>Описание — Español<textarea id="descriptionEs"></textarea></label>
+<label>Описание — Українська<textarea id="descriptionUk"></textarea></label>
+</div>
+</section>
 
-      <label>
-        Город
-        <input id="city" placeholder="Parma, Ohio">
-      </label>
+<section class="panel">
+<h2>3. Фотографии</h2>
+<div class="stage"><strong>До работы</strong><input id="beforeFiles" type="file" accept="image/*" multiple><p class="hint">before1.jpg, before2.jpg…</p></div>
+<div class="stage"><strong>В процессе</strong><input id="progressFiles" type="file" accept="image/*" multiple><p class="hint">progress1.jpg, progress2.jpg…</p></div>
+<div class="stage"><strong>После работы</strong><input id="afterFiles" type="file" accept="image/*" multiple><p class="hint">Первое фото станет главным <code>hero.jpg</code>.</p></div>
+</section>
 
-      <label>
-        Категория
-        <select id="category">
-          <option>Doors</option>
-          <option>Windows</option>
-          <option>Drywall</option>
-          <option>Interior Finish</option>
-          <option>Interior Renovation</option>
-          <option>Property Maintenance</option>
-          <option>Commercial</option>
-          <option>General Repair</option>
-        </select>
-      </label>
-
-      <label>
-        ID проекта
-        <input id="projectId" placeholder="storm-door-parma">
-      </label>
-
-      <label class="full">
-        Название — English
-        <input id="titleEn" placeholder="Storm Door Installation">
-      </label>
-      <label>
-        Название — Español
-        <input id="titleEs" placeholder="Instalación de puerta contra tormentas">
-      </label>
-      <label>
-        Название — Українська
-        <input id="titleUk" placeholder="Встановлення штормових дверей">
-      </label>
-
-      <label class="full">
-        Описание — English
-        <textarea id="descriptionEn" placeholder="Installed a new storm door with trim and weather sealing."></textarea>
-      </label>
-      <label>
-        Описание — Español
-        <textarea id="descriptionEs"></textarea>
-      </label>
-      <label>
-        Описание — Українська
-        <textarea id="descriptionUk"></textarea>
-      </label>
-    </div>
-  </section>
-
-  <section class="panel">
-    <h2>3. Фотографии</h2>
-
-    <div class="stage">
-      <strong>До работы</strong>
-      <input id="beforeFiles" type="file" accept="image/*" multiple>
-      <p class="hint">Будут названы: before1.jpg, before2.jpg…</p>
-    </div>
-
-    <div class="stage">
-      <strong>В процессе</strong>
-      <input id="progressFiles" type="file" accept="image/*" multiple>
-      <p class="hint">Будут названы: progress1.jpg, progress2.jpg…</p>
-    </div>
-
-    <div class="stage">
-      <strong>После работы</strong>
-      <input id="afterFiles" type="file" accept="image/*" multiple>
-      <p class="hint">Первое фото станет <code>hero.jpg</code>, остальные — after2.jpg, after3.jpg…</p>
-    </div>
-  </section>
-
-  <section class="panel">
-    <h2>4. Создать готовый пакет</h2>
-    <div class="actions">
-      <button id="generateBtn" class="primary" type="button">Создать ZIP проекта</button>
-      <button id="resetBtn" class="ghost" type="button">Очистить форму</button>
-    </div>
-    <div id="status" class="status" aria-live="polite"></div>
-
-    <div id="summary" class="summary">
-      <h3>Что будет внутри ZIP</h3>
-      <ul>
-        <li>папка проекта с переименованными фотографиями;</li>
-        <li><code>info.json</code> внутри папки проекта;</li>
-        <li>готовый обновлённый <code>projects.json</code>;</li>
-        <li>короткая инструкция.</li>
-      </ul>
-    </div>
-  </section>
-
-  <section class="panel">
-    <h2>Как использовать готовый ZIP</h2>
-    <ol>
-      <li>Распаковать ZIP.</li>
-      <li>Скопировать папку проекта внутрь <code>veritas-solution/projects</code>.</li>
-      <li>Заменить корневой <code>projects.json</code> файлом из ZIP.</li>
-      <li>GitHub Desktop → <strong>Commit to main</strong> → <strong>Push origin</strong>.</li>
-    </ol>
-  </section>
+<section class="panel">
+<h2>4. Опубликовать</h2>
+<div class="actions">
+<button id="publishBtn" class="primary" type="button">Publish Project</button>
+<button id="resetBtn" class="ghost" type="button">Очистить форму</button>
+</div>
+<div class="progress" id="progress"><span id="progressBar"></span></div>
+<div id="status" class="status" aria-live="polite"></div>
+<p class="hint">Страница создаст один Git-коммит: добавит фотографии, <code>info.json</code> и обновит <code>projects.json</code>. GitHub Desktop для этого проекта использовать не нужно.</p>
+</section>
 </main>
 
-<script src="https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js"></script>
 <script>
-  const $ = (id) => document.getElementById(id);
+const $=id=>document.getElementById(id);
+const API='https://api.github.com';
+const API_VERSION='2022-11-28';
 
-  function showStatus(message, type) {
-    const el = $('status');
-    el.textContent = message;
-    el.className = `status ${type}`;
+function headers(auth=true){
+  const h={'Accept':'application/vnd.github+json','X-GitHub-Api-Version':API_VERSION};
+  if(auth){
+    const token=$('token').value.trim();
+    if(!token) throw new Error('Введи GitHub token.');
+    h.Authorization=`Bearer ${token}`;
   }
-
-  function normalizeFolderName(value) {
-    return value
-      .trim()
-      .toLowerCase()
-      .replace(/[^a-z0-9]+/g, '-')
-      .replace(/^-+|-+$/g, '');
+  return h;
+}
+function values(){
+  return {
+    owner:$('owner').value.trim(),
+    repo:$('repo').value.trim(),
+    branch:$('branch').value.trim()
+  };
+}
+function normalize(v){return v.trim().toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-+|-+$/g,'')}
+function required(id,label){const v=$(id).value.trim();if(!v)throw new Error(`Заполни поле: ${label}.`);return v}
+function setStatus(text,type='busy'){const el=$('status');el.textContent=text;el.className=`status ${type}`}
+function setProgress(n){$('progress').style.display='block';$('progressBar').style.width=`${n}%`}
+async function api(path,options={}){
+  const response=await fetch(`${API}${path}`,{...options,headers:{...headers(options.auth!==false),...(options.headers||{})}});
+  if(!response.ok){
+    let detail='';
+    try{const data=await response.json();detail=data.message||JSON.stringify(data)}catch{}
+    throw new Error(`GitHub API ${response.status}: ${detail||response.statusText}`);
   }
+  return response.status===204?null:response.json();
+}
+function fileToBase64(file){
+  return new Promise((resolve,reject)=>{
+    const r=new FileReader();
+    r.onload=()=>resolve(String(r.result).split(',')[1]);
+    r.onerror=()=>reject(new Error(`Не удалось прочитать ${file.name}`));
+    r.readAsDataURL(file);
+  });
+}
+function utf8ToBase64(text){
+  const bytes=new TextEncoder().encode(text);
+  let binary=''; bytes.forEach(b=>binary+=String.fromCharCode(b));
+  return btoa(binary);
+}
+function base64ToUtf8(base64){
+  const binary=atob(base64.replace(/\n/g,''));
+  const bytes=Uint8Array.from(binary,c=>c.charCodeAt(0));
+  return new TextDecoder().decode(bytes);
+}
+function ext(file){
+  const n=file.name.toLowerCase();
+  if(n.endsWith('.png'))return'png';
+  if(n.endsWith('.webp'))return'webp';
+  return'jpg';
+}
+async function createBlob(owner,repo,content,encoding){
+  return api(`/repos/${owner}/${repo}/git/blobs`,{
+    method:'POST',
+    body:JSON.stringify({content,encoding}),
+    headers:{'Content-Type':'application/json'}
+  });
+}
+async function currentProjects(owner,repo,branch){
+  const data=await api(`/repos/${owner}/${repo}/contents/projects.json?ref=${encodeURIComponent(branch)}`);
+  return JSON.parse(base64ToUtf8(data.content));
+}
+function galleryFileItems(files,folder,prefix,labels){
+  return Array.from(files).map((file,i)=>({
+    file,
+    path:`projects/${folder}/${prefix}${i+1}.${ext(file)}`,
+    label:labels
+  }));
+}
 
-  function extensionFor(file) {
-    const name = file.name.toLowerCase();
-    if (name.endsWith('.png')) return 'png';
-    if (name.endsWith('.webp')) return 'webp';
-    return 'jpg';
-  }
+$('folder').addEventListener('input',()=>{
+  if(!$('projectId').value.trim())$('projectId').value=normalize($('folder').value).replace(/^\d{4}-\d{2}-/,'');
+});
 
-  async function readProjectsFile() {
-    const file = $('projectsFile').files[0];
-    if (!file) throw new Error('Сначала выбери текущий projects.json.');
-    const text = await file.text();
-    const data = JSON.parse(text);
-    if (!Array.isArray(data)) throw new Error('projects.json должен содержать массив проектов.');
-    return data;
-  }
+$('testBtn').addEventListener('click',async()=>{
+  try{
+    setStatus('Проверяю доступ…','busy');
+    const {owner,repo,branch}=values();
+    const ref=await api(`/repos/${owner}/${repo}/git/ref/heads/${encodeURIComponent(branch)}`);
+    setStatus(`Подключение работает.\nТекущий commit: ${ref.object.sha.slice(0,10)}`,'ok');
+  }catch(e){setStatus(e.message,'error')}
+});
 
-  function requiredValue(id, label) {
-    const value = $(id).value.trim();
-    if (!value) throw new Error(`Заполни поле: ${label}.`);
-    return value;
-  }
+$('publishBtn').addEventListener('click',async()=>{
+  const btn=$('publishBtn');
+  btn.disabled=true;
+  try{
+    setProgress(3);setStatus('Проверяю данные…','busy');
+    const {owner,repo,branch}=values();
+    const folder=normalize(required('folder','Название папки'));
+    const projectId=normalize(required('projectId','ID проекта'));
+    const city=required('city','Город');
+    const category=required('category','Категория');
+    const titleEn=required('titleEn','Название — English');
+    const descriptionEn=required('descriptionEn','Описание — English');
+    const before=$('beforeFiles').files;
+    const progress=$('progressFiles').files;
+    const after=$('afterFiles').files;
+    if(!after.length)throw new Error('Добавь хотя бы одно фото после работы.');
 
-  function galleryItems(files, folder, prefix, labels) {
-    return Array.from(files).map((file, index) => {
-      const number = index + 1;
-      const ext = extensionFor(file);
-      const filename = `${prefix}${number}.${ext}`;
-      return {
-        file,
-        filename,
-        gallery: {
-          src: `projects/${folder}/${filename}`,
-          label: labels
-        }
-      };
-    });
-  }
+    setProgress(8);setStatus('Получаю текущую версию сайта…','busy');
+    const ref=await api(`/repos/${owner}/${repo}/git/ref/heads/${encodeURIComponent(branch)}`);
+    const parentSha=ref.object.sha;
+    const commit=await api(`/repos/${owner}/${repo}/git/commits/${parentSha}`);
+    const baseTreeSha=commit.tree.sha;
+    const projects=await currentProjects(owner,repo,branch);
+    if(!Array.isArray(projects))throw new Error('projects.json имеет неверный формат.');
+    if(projects.some(p=>p.id===projectId))throw new Error(`ID "${projectId}" уже существует.`);
 
-  $('folder').addEventListener('input', () => {
-    const normalized = normalizeFolderName($('folder').value);
-    if (!$('projectId').value.trim()) {
-      $('projectId').value = normalized.replace(/^\d{4}-\d{2}-/, '');
+    const labels={
+      before:{en:'Before',es:'Antes',uk:'До ремонту'},
+      progress:{en:'Work in progress',es:'Trabajo en proceso',uk:'У процесі роботи'},
+      after:{en:'Completed result',es:'Resultado final',uk:'Готовий результат'}
+    };
+    const items=[
+      ...galleryFileItems(before,folder,'before',labels.before),
+      ...galleryFileItems(progress,folder,'progress',labels.progress)
+    ];
+    const hero={file:after[0],path:`projects/${folder}/hero.${ext(after[0])}`,label:labels.after};
+    items.push(hero);
+    Array.from(after).slice(1).forEach((file,i)=>items.push({file,path:`projects/${folder}/after${i+2}.${ext(file)}`,label:labels.after}));
+
+    const project={
+      id:projectId,
+      image:hero.path,
+      gallery:items.map(x=>({src:x.path,label:x.label})),
+      title:{en:titleEn,es:$('titleEs').value.trim()||titleEn,uk:$('titleUk').value.trim()||titleEn},
+      city,category,
+      description:{en:descriptionEn,es:$('descriptionEs').value.trim()||descriptionEn,uk:$('descriptionUk').value.trim()||descriptionEn}
+    };
+    projects.push(project);
+
+    setProgress(15);setStatus(`Загружаю фотографии: 0 из ${items.length}…`,'busy');
+    const tree=[];
+    for(let i=0;i<items.length;i++){
+      const item=items[i];
+      const blob=await createBlob(owner,repo,await fileToBase64(item.file),'base64');
+      tree.push({path:item.path,mode:'100644',type:'blob',sha:blob.sha});
+      setProgress(15+Math.round(((i+1)/items.length)*55));
+      setStatus(`Загружаю фотографии: ${i+1} из ${items.length}…`,'busy');
     }
-  });
 
-  $('generateBtn').addEventListener('click', async () => {
-    try {
-      showStatus('Подготовка файлов…', 'ok');
+    setProgress(74);setStatus('Создаю info.json и projects.json…','busy');
+    const infoBlob=await createBlob(owner,repo,utf8ToBase64(JSON.stringify(project,null,2)),'base64');
+    tree.push({path:`projects/${folder}/info.json`,mode:'100644',type:'blob',sha:infoBlob.sha});
+    const projectsBlob=await createBlob(owner,repo,utf8ToBase64(JSON.stringify(projects,null,2)),'base64');
+    tree.push({path:'projects.json',mode:'100644',type:'blob',sha:projectsBlob.sha});
 
-      const projects = await readProjectsFile();
-      const folder = normalizeFolderName(requiredValue('folder', 'Название папки'));
-      const projectId = normalizeFolderName(requiredValue('projectId', 'ID проекта'));
-      const city = requiredValue('city', 'Город');
-      const category = requiredValue('category', 'Категория');
-      const titleEn = requiredValue('titleEn', 'Название — English');
-      const descriptionEn = requiredValue('descriptionEn', 'Описание — English');
-
-      const before = $('beforeFiles').files;
-      const progress = $('progressFiles').files;
-      const after = $('afterFiles').files;
-
-      if (!after.length) {
-        throw new Error('Добавь хотя бы одно фото после работы. Оно станет главным фото hero.jpg.');
-      }
-
-      if (projects.some(p => p.id === projectId)) {
-        throw new Error(`Проект с ID "${projectId}" уже существует.`);
-      }
-
-      const zip = new JSZip();
-      const projectFolder = zip.folder(`projects/${folder}`);
-
-      const gallery = [];
-
-      const beforeItems = galleryItems(before, folder, 'before', {
-        en: 'Before',
-        es: 'Antes',
-        uk: 'До ремонту'
-      });
-
-      const progressItems = galleryItems(progress, folder, 'progress', {
-        en: 'Work in progress',
-        es: 'Trabajo en proceso',
-        uk: 'У процесі роботи'
-      });
-
-      for (const item of [...beforeItems, ...progressItems]) {
-        projectFolder.file(item.filename, item.file);
-        gallery.push(item.gallery);
-      }
-
-      // First "after" photo is always hero.
-      const heroFile = after[0];
-      const heroExt = extensionFor(heroFile);
-      const heroFilename = `hero.${heroExt}`;
-      projectFolder.file(heroFilename, heroFile);
-      gallery.push({
-        src: `projects/${folder}/${heroFilename}`,
-        label: {
-          en: 'Completed result',
-          es: 'Resultado final',
-          uk: 'Готовий результат'
-        }
-      });
-
-      Array.from(after).slice(1).forEach((file, index) => {
-        const ext = extensionFor(file);
-        const filename = `after${index + 2}.${ext}`;
-        projectFolder.file(filename, file);
-        gallery.push({
-          src: `projects/${folder}/${filename}`,
-          label: {
-            en: 'Completed result',
-            es: 'Resultado final',
-            uk: 'Готовий результат'
-          }
-        });
-      });
-
-      const project = {
-        id: projectId,
-        image: `projects/${folder}/${heroFilename}`,
-        gallery,
-        title: {
-          en: titleEn,
-          es: $('titleEs').value.trim() || titleEn,
-          uk: $('titleUk').value.trim() || titleEn
-        },
-        city,
-        category,
-        description: {
-          en: descriptionEn,
-          es: $('descriptionEs').value.trim() || descriptionEn,
-          uk: $('descriptionUk').value.trim() || descriptionEn
-        }
-      };
-
-      projects.push(project);
-
-      projectFolder.file('info.json', JSON.stringify(project, null, 2));
-      zip.file('projects.json', JSON.stringify(projects, null, 2));
-      zip.file('README.txt',
-`VERITAS PROJECT PACKAGE
-
-1. Copy the folder:
-projects/${folder}
-
-into:
-veritas-solution/projects/
-
-2. Replace the root projects.json with the projects.json from this ZIP.
-
-3. In GitHub Desktop:
-Commit to main
-Push origin
-`);
-
-      const blob = await zip.generateAsync({type:'blob'});
-      const url = URL.createObjectURL(blob);
-      const link = document.createElement('a');
-      link.href = url;
-      link.download = `${folder}-project-package.zip`;
-      document.body.appendChild(link);
-      link.click();
-      link.remove();
-      URL.revokeObjectURL(url);
-
-      $('summary').classList.add('show');
-      showStatus('Готово. ZIP скачан. Теперь распакуй его и скопируй файлы в проект.', 'ok');
-    } catch (error) {
-      console.error(error);
-      showStatus(error.message || 'Не удалось создать пакет.', 'error');
-    }
-  });
-
-  $('resetBtn').addEventListener('click', () => {
-    document.querySelectorAll('input,textarea').forEach(el => {
-      if (el.type === 'file') el.value = '';
-      else el.value = '';
+    setProgress(82);setStatus('Создаю Git tree…','busy');
+    const newTree=await api(`/repos/${owner}/${repo}/git/trees`,{
+      method:'POST',
+      body:JSON.stringify({base_tree:baseTreeSha,tree}),
+      headers:{'Content-Type':'application/json'}
     });
-    $('category').selectedIndex = 0;
-    $('summary').classList.remove('show');
-    $('status').className = 'status';
-    $('status').textContent = '';
+
+    setProgress(89);setStatus('Создаю commit…','busy');
+    const newCommit=await api(`/repos/${owner}/${repo}/git/commits`,{
+      method:'POST',
+      body:JSON.stringify({message:`Add project: ${titleEn}`,tree:newTree.sha,parents:[parentSha]}),
+      headers:{'Content-Type':'application/json'}
+    });
+
+    setProgress(96);setStatus('Публикую commit в main…','busy');
+    await api(`/repos/${owner}/${repo}/git/refs/heads/${encodeURIComponent(branch)}`,{
+      method:'PATCH',
+      body:JSON.stringify({sha:newCommit.sha,force:false}),
+      headers:{'Content-Type':'application/json'}
+    });
+
+    setProgress(100);
+    setStatus(`Проект опубликован.\nCommit: ${newCommit.sha.slice(0,10)}\nПодожди 1–3 минуты и обнови страницу Projects.`,'ok');
+  }catch(e){
+    console.error(e);setStatus(e.message||'Ошибка публикации.','error');
+  }finally{btn.disabled=false}
+});
+
+$('resetBtn').addEventListener('click',()=>{
+  document.querySelectorAll('input,textarea').forEach(el=>{
+    if(['owner','repo','branch','token'].includes(el.id))return;
+    el.value='';
   });
+  $('category').selectedIndex=0;$('status').className='status';$('progress').style.display='none';setProgress(0);
+});
 </script>
 </body>
 </html>

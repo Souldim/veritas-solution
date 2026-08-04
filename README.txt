@@ -1,36 +1,28 @@
-VERITAS SOLUTION LLC — WEBSITE V2
+VERITAS DIRECT PUBLISH ADMIN
 
-UPLOAD TO GITHUB
-1. Open the veritas-solution repository.
-2. Click Add file → Upload files.
-3. Upload:
-   index.html
-   styles.css
-   script.js
-   content.js
-   the entire images folder
-4. GitHub will ask whether to replace existing files. Confirm the upload/commit.
-5. Click Commit changes.
-6. GitHub Pages updates automatically in about 1–3 minutes.
+WHAT CHANGED
+- No ZIP.
+- No copying folders.
+- No GitHub Desktop for new projects.
+- The page commits project photos and projects.json directly to GitHub.
 
-HOW TO ADD A NEW PROJECT PHOTO
-1. Upload the new photo into the images folder in GitHub.
-2. Open content.js.
-3. Find the projects section.
-4. Copy one existing project entry and change:
-   image
-   title
-   meta
-5. Commit changes.
+INSTALL
+Replace the existing admin.html in veritas-solution with this new admin.html.
+Commit and Push once using GitHub Desktop.
 
-Example:
-{image:'images/new-door.jpg',
- title:{en:'Storm Door Installation',es:'Instalación de puerta contra tormentas',uk:'Встановлення штормових дверей'},
- meta:{en:'Parma, Ohio',es:'Parma, Ohio',uk:'Parma, Ohio'}}
+TOKEN
+Create a fine-grained personal access token restricted to:
+Repository: veritas-solution
+Repository permission: Contents — Read and write
 
-IMPORTANT
-- Use lowercase file names without spaces, for example:
-  storm-door-parma.jpg
-- Recommended image size: 1600–2400 pixels on the long side.
-- Avoid uploading blurry screenshots.
-- The first project image is also the main hero background.
+Do not share the token.
+The page does not save it to localStorage or cookies.
+Close the browser tab after publishing.
+
+USE
+1. Open /admin.html
+2. Enter token.
+3. Fill project details.
+4. Select Before / Progress / After photos.
+5. Click Publish Project.
+6. Wait 1–3 minutes and refresh the Projects page.
