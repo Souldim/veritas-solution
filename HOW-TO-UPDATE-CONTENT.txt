@@ -1,0 +1,65 @@
+VERITAS SOLUTION LLC — CONTENT UPDATE GUIDE
+
+1. HOW TO CHANGE PHONE, EMAIL OR BUSINESS NAME
+Open:
+content-v4.js
+
+At the very top you will see:
+
+const BUSINESS = {
+  name: 'Veritas Solution LLC',
+  phoneDisplay: '216-214-4720',
+  phoneLink: '+12162144720',
+  email: 'veritassolutionllc@gmail.com',
+  city: 'Parma Heights, Ohio',
+  serviceArea: 'Greater Cleveland',
+  estimateText: 'Hello Veritas Solution LLC, I would like an estimate for:'
+};
+
+Change only the text between quotation marks.
+Do not remove commas or quotation marks.
+
+2. HOW TO ADD A NEW PROJECT
+A. Copy the new photo into the images folder.
+B. Use a simple lowercase filename without spaces:
+   storm-door-parma.jpg
+C. Open content-v4.js.
+D. Find:
+   projects: [
+E. Copy one complete project entry and paste it before the closing ].
+
+Example:
+
+{
+  image:'images/storm-door-parma.jpg',
+  title:{
+    en:'Storm Door Installation',
+    es:'Instalación de puerta contra tormentas',
+    uk:'Встановлення штормових дверей'
+  },
+  meta:{
+    en:'Parma, Ohio',
+    es:'Parma, Ohio',
+    uk:'Parma, Ohio'
+  }
+},
+
+3. HOW TO REPLACE THE MAIN BACKGROUND PHOTO
+The first project photo is also the main hero photo.
+
+Simplest method:
+- Replace images/entryway-accent-wall.jpg with another photo using exactly
+  the same filename.
+
+4. HOW TO PUBLISH CHANGES
+In GitHub Desktop:
+- Write a short Summary.
+- Click Commit to main.
+- Click Push origin.
+- Wait 1–3 minutes.
+- Refresh the website.
+
+5. IMPORTANT LIMITATION
+This is a free static GitHub Pages website. An admin page cannot safely save
+changes directly to GitHub without giving it access credentials. Editing the
+single content-v4.js file through GitHub Desktop is the safest free method.

@@ -9,7 +9,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="veritas-v3.css">
+  <link rel="stylesheet" href="veritas-v4.css">
 </head>
 <body>
   <header class="topbar">
@@ -28,7 +28,7 @@
         <div class="languages" aria-label="Language">
           <button data-lang="en" class="active">EN</button>
           <button data-lang="es">ES</button>
-          <button data-lang="uk">UA</button>
+          <button data-lang="uk">UK</button>
         </div>
       </nav>
     </div>
@@ -43,8 +43,8 @@
           <h1 data-i18n="hero_title">Professional handyman services in Greater Cleveland</h1>
           <p data-i18n="hero_text">Reliable repairs, installations, and property maintenance with clear communication and attention to detail.</p>
           <div class="hero-actions">
-            <a class="btn gold" href="tel:+12162144720" data-i18n="call_now">Call Now</a>
-            <a class="btn outline" href="sms:+12162144720?body=Hello%20Veritas%20Solution%20LLC,%20I%20would%20like%20an%20estimate." data-i18n="text_photos">Text Project Photos</a>
+            <a id="hero-phone-link" class="btn gold" href="#" data-i18n="call_now">Call Now</a>
+            <a id="hero-text-link" class="btn outline" href="#" data-i18n="text_photos">Text Project Photos</a>
           </div>
           <div class="hero-points">
             <span data-i18n="point_1">Honest pricing</span>
@@ -94,7 +94,7 @@
           <h2 data-i18n="commercial_title">Reliable support for property managers and business owners</h2>
           <p data-i18n="commercial_text">We provide maintenance and repair support for rental properties, offices, retail spaces, investors, and commercial property owners.</p>
           <ul id="commercial-list"></ul>
-          <a class="btn light" href="sms:+12162144720?body=Hello%20Veritas%20Solution%20LLC,%20I%20need%20commercial%20property%20maintenance." data-i18n="commercial_cta">Discuss Property Maintenance</a>
+          <a id="commercial-text-link" class="btn light" href="#" data-i18n="commercial_cta">Discuss Property Maintenance</a>
         </div>
         <div class="commercial-photo" role="img" aria-label="Completed dining and kitchen renovation"></div>
       </div>
@@ -128,8 +128,9 @@
           <p data-i18n="contact_text">For a faster estimate, text the property location, a short description, and clear photos of the work.</p>
         </div>
         <div class="contact-card">
-          <a class="contact-action" href="tel:+12162144720"><span>☎</span><div><small data-i18n="phone_label">Phone</small><strong>216-214-4720</strong></div></a>
-          <a class="contact-action" href="sms:+12162144720?body=Hello%20Veritas%20Solution%20LLC,%20I%20would%20like%20an%20estimate."><span>✉</span><div><small data-i18n="text_label">Text</small><strong data-i18n="send_photos">Send project photos</strong></div></a>
+          <a id="contact-phone-link" class="contact-action" href="#"><span>☎</span><div><small data-i18n="phone_label">Phone</small><strong id="contact-phone">216-214-4720</strong></div></a>
+          <a id="contact-text-link" class="contact-action" href="#"><span>✉</span><div><small data-i18n="text_label">Text</small><strong data-i18n="send_photos">Send project photos</strong></div></a>
+          <a id="contact-email-link" class="contact-action" href="#"><span>✉</span><div><small data-i18n="email_label">Email</small><strong id="contact-email">veritassolutionllc@gmail.com</strong></div></a>
         </div>
       </div>
     </section>
@@ -137,7 +138,7 @@
 
   <footer>
     <div class="container footer">
-      <div><strong>Veritas Solution LLC</strong><span data-i18n="footer_subtitle">Residential & Commercial Handyman Services</span></div>
+      <div><strong id="footer-business-name">Veritas Solution LLC</strong><span data-i18n="footer_subtitle">Residential & Commercial Handyman Services</span><a id="footer-email" class="footer-email" href="#">veritassolutionllc@gmail.com</a></div>
       <div>© <span id="year"></span> Veritas Solution LLC</div>
     </div>
   </footer>
@@ -147,7 +148,7 @@
     <img alt="">
   </div>
 
-  <script src="content-v3.js"></script>
-  <script src="veritas-v3.js"></script>
+  <script src="content-v4.js"></script>
+  <script src="veritas-v4.js"></script>
 </body>
 </html>
