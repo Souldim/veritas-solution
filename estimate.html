@@ -9,7 +9,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="estimate.css?v=max-20260804-2">
+<link rel="stylesheet" href="estimate.css?v=pro-20260804-1">
 </head>
 <body>
 <header class="topbar">
@@ -47,13 +47,25 @@
 
 <main id="estimator">
   <div class="container">
-    <div class="progress-shell"><div id="progress-bar"></div></div>
+    <div class="stepper" aria-label="Estimate progress">
+      <div class="step-item active" data-step-indicator="1"><span>1</span><b data-t="stepChoose">Choose</b></div>
+      <div class="step-line"></div>
+      <div class="step-item" data-step-indicator="2"><span>2</span><b data-t="stepDetails">Details</b></div>
+      <div class="step-line"></div>
+      <div class="step-item" data-step-indicator="3"><span>3</span><b data-t="stepEstimate">Estimate</b></div>
+      <div class="step-line"></div>
+      <div class="step-item" data-step-indicator="4"><span>4</span><b data-t="stepSend">Send</b></div>
+    </div>
     <div class="step-label"><span id="step-text">Step 1 of 4</span><button id="reset-all" type="button" data-t="startOver">Start over</button></div>
 
     <section class="wizard-card active" data-step="1">
       <div class="section-head"><span class="number">1</span><div><h2 data-t="chooseTitle">Choose a service</h2><p data-t="chooseText">Search or browse by category.</p></div></div>
+      <div class="popular-wrap">
+        <div class="popular-title"><span>★</span><b data-t="popular">Most requested</b></div>
+        <div id="popular-services" class="popular-services"></div>
+      </div>
       <div class="tools">
-        <input id="service-search" type="search" placeholder="Search services..." data-placeholder="search">
+        <div class="search-wrap"><span>⌕</span><input id="service-search" type="search" placeholder="Search services..." data-placeholder="search"></div>
         <div id="category-filters" class="filters"></div>
       </div>
       <div id="services-list" class="services-grid"></div>
@@ -96,11 +108,23 @@
       <details><summary data-t="faq3q">Why might the final price change?</summary><p data-t="faq3a">Hidden damage, difficult access, code or permit requirements, material runs, structural work, and changes to electrical or plumbing systems can change the scope.</p></details>
       <details><summary data-t="faq4q">Can I combine several small jobs?</summary><p data-t="faq4a">Yes. Bundling tasks can be more efficient than scheduling separate minimum-service visits.</p></details>
     </section>
+
+    <section class="confidence">
+      <div>
+        <span class="confidence-kicker" data-t="whyTitle">Why use this estimate?</span>
+        <h2 data-t="whyHeading">Clear expectations before you call</h2>
+      </div>
+      <div class="confidence-grid">
+        <article><strong>01</strong><h3 data-t="why1h">Labor range first</h3><p data-t="why1p">See a realistic preliminary range before requesting a visit.</p></article>
+        <article><strong>02</strong><h3 data-t="why2h">Photos for accuracy</h3><p data-t="why2p">Send project photos and measurements for a more exact quote.</p></article>
+        <article><strong>03</strong><h3 data-t="why3h">No obligation</h3><p data-t="why3p">The calculator is free and does not create a booking or contract.</p></article>
+      </div>
+    </section>
   </div>
 </main>
 
 <footer><div class="container footer"><div>Veritas Solution LLC · Greater Cleveland</div><div>Call or text: 216-214-4720 · veritassolutionllc@gmail.com</div></div></footer>
-<script src="estimate-prices.js?v=max-20260804-2"></script>
-<script src="estimate.js?v=max-20260804-2"></script>
+<script src="estimate-prices.js?v=pro-20260804-1"></script>
+<script src="estimate.js?v=pro-20260804-1"></script>
 </body>
 </html>
