@@ -1,27 +1,106 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="description" content="Free preliminary labor estimate for common handyman services in Greater Cleveland.">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="Free preliminary handyman labor estimate for Greater Cleveland.">
 <meta name="theme-color" content="#102333">
 <title>Free Price Estimate | Veritas Solution LLC</title>
-<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="estimate.css">
 </head>
 <body>
-<header class="topbar"><div class="container nav">
-<a class="brand" href="index.html"><span class="brand-icon">⌂</span><span><strong>VERITAS</strong><small>SOLUTION LLC</small></span></a>
-<div class="nav-links"><a href="index.html#services" data-t="services">Services</a><a href="index.html#projects" data-t="projects">Projects</a><a class="home-link" href="index.html" data-t="home">Main Site</a><div class="langs"><button class="active" data-lang="en">EN</button><button data-lang="es">ES</button><button data-lang="uk">UK</button></div></div>
-</div></header>
-<section class="hero"><div class="container hero-grid"><div>
-<span class="eyebrow" data-t="eyebrow">Free preliminary labor estimate</span><h1 data-t="heroTitle">Find your project price range</h1>
-<p data-t="heroText">Answer a few simple questions to receive an instant preliminary labor estimate for common handyman services in Greater Cleveland.</p>
-<div class="hero-points"><div><strong data-t="free">100% Free</strong><span data-t="freeText">No account or payment</span></div><div><strong data-t="fast">Fast</strong><span data-t="fastText">Usually less than one minute</span></div><div><strong data-t="prelim">Preliminary</strong><span data-t="prelimText">Final quote after photos or inspection</span></div></div>
-</div><div class="hero-card"><strong data-t="needExact">Need an exact price?</strong><p data-t="needExactText">Text clear photos, location, and a short description. We will review the project personally.</p><a href="sms:12162144720?body=Hello%20Veritas%20Solution%2C%20I%20would%20like%20an%20estimate.%20I%20will%20send%20photos%20and%20the%20project%20location." data-t="textPhotos">Text Project Photos</a></div></div></section>
-<main><div class="container estimator-layout"><section class="panel"><h2 data-t="calculator">Price Calculator</h2><p class="intro" data-t="calculatorText">Select a service and answer the questions below.</p><h3 data-t="choose">Choose a service</h3><div id="services-list" class="services"></div><div id="questions-wrap"></div><button id="calculate" class="calc-btn" data-t="calculate">Calculate My Estimate</button></section>
-<aside class="panel result" id="result"><div class="result-placeholder" data-t="placeholder">Choose a service and calculate your preliminary price range.</div></aside></div>
-<div class="container market-note"><h3 data-t="important">Important pricing information</h3><p data-t="importantText">Estimates show labor only unless stated otherwise. Materials, permits, hidden damage, electrical or plumbing modifications, structural repairs, unusually difficult access, and disposal may require a separate quote. Minimum service visit is $100.</p></div></main>
-<footer><div class="container footer"><div>Veritas Solution LLC · Greater Cleveland</div><div>Call or text: 216-214-4720</div></div></footer>
-<script src="estimate-prices.js"></script><script src="estimate.js"></script>
-</body></html>
+<header class="topbar">
+  <div class="container nav">
+    <a class="brand" href="index.html"><span class="brand-icon">⌂</span><span><strong>VERITAS</strong><small>SOLUTION LLC</small></span></a>
+    <div class="nav-links">
+      <a href="index.html#services" data-t="services">Services</a>
+      <a href="index.html#projects" data-t="projects">Projects</a>
+      <a class="home-link" href="index.html" data-t="home">Main Site</a>
+      <div class="langs"><button class="active" data-lang="en">EN</button><button data-lang="es">ES</button><button data-lang="uk">UK</button></div>
+    </div>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="container hero-grid">
+    <div>
+      <span class="eyebrow" data-t="eyebrow">Free preliminary labor estimate</span>
+      <h1 data-t="heroTitle">Plan your project with confidence</h1>
+      <p data-t="heroText">Choose a service, answer a few questions, and receive an instant preliminary labor range for Greater Cleveland.</p>
+      <div class="trust-row">
+        <span>✓ <b data-t="free">100% free</b></span>
+        <span>✓ <b data-t="fast">About one minute</b></span>
+        <span>✓ <b data-t="private">No account required</b></span>
+      </div>
+    </div>
+    <div class="hero-card">
+      <span class="step-badge" data-t="exactTitle">Exact quote</span>
+      <h2 data-t="exactHeading">Send photos after your estimate</h2>
+      <p data-t="exactText">The calculator prepares a complete project summary for text or email.</p>
+      <a class="gold-btn" href="#estimator" data-t="start">Start estimate</a>
+    </div>
+  </div>
+</section>
+
+<main id="estimator">
+  <div class="container">
+    <div class="progress-shell"><div id="progress-bar"></div></div>
+    <div class="step-label"><span id="step-text">Step 1 of 4</span><button id="reset-all" type="button" data-t="startOver">Start over</button></div>
+
+    <section class="wizard-card active" data-step="1">
+      <div class="section-head"><span class="number">1</span><div><h2 data-t="chooseTitle">Choose a service</h2><p data-t="chooseText">Search or browse by category.</p></div></div>
+      <div class="tools">
+        <input id="service-search" type="search" placeholder="Search services..." data-placeholder="search">
+        <div id="category-filters" class="filters"></div>
+      </div>
+      <div id="services-list" class="services-grid"></div>
+    </section>
+
+    <section class="wizard-card" data-step="2">
+      <div class="section-head"><span class="number">2</span><div><h2 id="selected-service-title">Project details</h2><p data-t="detailsText">Tell us about the size and conditions.</p></div></div>
+      <div id="questions-wrap"></div>
+      <div class="wizard-actions"><button class="back-btn" data-back="1" data-t="back">Back</button><button class="next-btn" id="to-result" data-t="calculate">Calculate estimate</button></div>
+    </section>
+
+    <section class="wizard-card" data-step="3">
+      <div class="section-head"><span class="number">3</span><div><h2 data-t="resultTitle">Your preliminary estimate</h2><p data-t="resultText">Review the range and what affects it.</p></div></div>
+      <div id="result"></div>
+      <div class="wizard-actions"><button class="back-btn" data-back="2" data-t="back">Back</button><button class="next-btn" id="to-request" data-t="requestExact">Request exact quote</button></div>
+    </section>
+
+    <section class="wizard-card" data-step="4">
+      <div class="section-head"><span class="number">4</span><div><h2 data-t="requestTitle">Prepare your quote request</h2><p data-t="requestText">Your information stays in your browser until you choose text or email.</p></div></div>
+      <div class="request-grid">
+        <label><span data-t="name">Name</span><input id="customer-name" autocomplete="name"></label>
+        <label><span data-t="zip">ZIP code or city</span><input id="customer-location" placeholder="Parma, OH"></label>
+        <label class="wide"><span data-t="notes">Project notes</span><textarea id="customer-notes" rows="4" placeholder="Measurements, preferred date, materials already purchased..."></textarea></label>
+        <label class="wide upload-box"><span data-t="photos">Select project photos</span><input id="photo-input" type="file" accept="image/*" multiple><small data-t="photoNote">Photos are previewed locally and are not uploaded. Attach them manually after SMS or email opens.</small></label>
+      </div>
+      <div id="photo-preview" class="photo-preview"></div>
+      <div class="summary-box"><h3 data-t="summary">Request summary</h3><pre id="request-summary"></pre></div>
+      <div class="contact-actions">
+        <a id="sms-link" class="contact-btn primary" href="#">Text request</a>
+        <a id="email-link" class="contact-btn secondary" href="#">Email request</a>
+        <a class="contact-btn outline" href="tel:12162144720">Call 216-214-4720</a>
+      </div>
+      <div class="wizard-actions"><button class="back-btn" data-back="3" data-t="back">Back</button></div>
+    </section>
+
+    <section class="faq">
+      <div class="section-head"><span class="number">?</span><div><h2 data-t="faqTitle">Estimate questions</h2><p data-t="faqText">What this calculator includes and excludes.</p></div></div>
+      <details><summary data-t="faq1q">Is this a final quote?</summary><p data-t="faq1a">No. It is a preliminary labor range. The exact price is confirmed after photos, measurements, or an inspection.</p></details>
+      <details><summary data-t="faq2q">Are materials included?</summary><p data-t="faq2a">No, unless specifically stated. The calculator assumes customer-supplied fixtures and products.</p></details>
+      <details><summary data-t="faq3q">Why might the final price change?</summary><p data-t="faq3a">Hidden damage, difficult access, code or permit requirements, material runs, structural work, and changes to electrical or plumbing systems can change the scope.</p></details>
+      <details><summary data-t="faq4q">Can I combine several small jobs?</summary><p data-t="faq4a">Yes. Bundling tasks can be more efficient than scheduling separate minimum-service visits.</p></details>
+    </section>
+  </div>
+</main>
+
+<footer><div class="container footer"><div>Veritas Solution LLC · Greater Cleveland</div><div>Call or text: 216-214-4720 · veritassolutionllc@gmail.com</div></div></footer>
+<script src="estimate-prices.js"></script>
+<script src="estimate.js"></script>
+</body>
+</html>

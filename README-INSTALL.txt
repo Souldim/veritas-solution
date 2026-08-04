@@ -1,54 +1,61 @@
-VERITAS FREE ESTIMATOR — INSTALLATION
+VERITAS ESTIMATOR MAX — FINAL FREE VERSION
 
-FILES
-- estimate.html
-- estimate.css
-- estimate.js
-- estimate-prices.js
+WHAT IS INCLUDED
+- 26 common handyman services
+- Search and category filters
+- 4-step estimate wizard
+- Market-based Greater Cleveland labor ranges
+- Quantity and condition adjustments
+- Automatic exact-quote requirement for unknown electrical, plumbing, structural, or permit-sensitive scope
+- EN / ES / UK interface
+- Local photo preview
+- Prepared SMS and email request
+- Mobile layout
+- FAQ and clear pricing disclaimer
+- All prices editable in one file
 
-INSTALL
-1. Copy all four files into:
+FILES TO REPLACE
+1. estimate.html
+2. estimate.css
+3. estimate.js
+4. estimate-prices.js
+
+INSTALLATION
+1. Make a backup copy of the four existing estimate files.
+2. Copy these four new files into:
    Documents/GitHub/veritas-solution/
-
-2. In GitHub Desktop:
-   Summary: Add free price estimator
-   Commit to main
-   Push origin
-
-3. After 1–3 minutes open:
+3. Confirm Replace files.
+4. Open GitHub Desktop.
+5. Summary:
+   Upgrade estimator to MAX version
+6. Commit to main.
+7. Push origin.
+8. Wait 1–3 minutes.
+9. Open:
    https://souldim.github.io/veritas-solution/estimate.html
+10. Hard refresh with Ctrl+F5.
 
 HOW TO CHANGE PRICES
-Open estimate-prices.js in VS Code.
+Open estimate-prices.js.
 
-Example:
-base: [190, 275]
+base: [100, 145]
+- first number = low end for the first unit
+- second number = high end for the first unit
 
-190 = lower end
-275 = upper end
+additionalUnit: [40, 65]
+- extra range for each additional unit
 
-Example extra:
-add: [40, 70]
+add: [25, 50]
+- adjustment when the customer answers Yes
 
-40 = lower additional charge
-70 = upper additional charge
+IMPORTANT FREE-HOSTING LIMITATION
+GitHub Pages cannot securely receive uploaded files by itself.
+The photo selector only previews files locally. The prepared SMS/email tells the client to attach photos manually.
+This avoids paid hosting, paid API services, passwords, and unsafe public tokens.
 
-CURRENT SERVICES
-- Window blinds
-- Storm door
-- Prehung interior door
-- TV mounting
-- Drywall repair
-- Faucet replacement
-- Light fixture
-- Furniture assembly
-
-IMPORTANT
-The calculator shows preliminary labor ranges, not binding quotes.
-Materials, permits, hidden damage, major electrical/plumbing changes,
-structural work, and difficult access require final review.
-
-OPTIONAL MAIN MENU LINK
-Inside index.html, add this link inside <nav class="menu">:
-
-<a href="estimate.html">Price Guide</a>
+PRICING POLICY
+- Labor only unless stated
+- Customer-supplied fixtures/products
+- $100 minimum service visit
+- Final price requires photos, measurements, or inspection
+- New circuits, wiring changes, plumbing-line changes, structural repairs, permits, and unknown hidden damage require an exact quote
