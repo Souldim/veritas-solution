@@ -9,7 +9,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="veritas-v5.css">
+  <link rel="stylesheet" href="veritas-v6.css">
 </head>
 <body>
   <header class="topbar">
@@ -144,11 +144,22 @@
   </footer>
 
   <div class="lightbox" id="lightbox" aria-hidden="true">
-    <button aria-label="Close image">×</button>
-    <img alt="">
+    <button class="lightbox-close" type="button" aria-label="Close gallery">×</button>
+    <button class="lightbox-nav lightbox-prev" type="button" aria-label="Previous photo">‹</button>
+
+    <figure class="lightbox-content">
+      <img id="lightbox-image" alt="">
+      <figcaption>
+        <strong id="lightbox-title"></strong>
+        <span id="lightbox-label"></span>
+        <small id="lightbox-counter"></small>
+      </figcaption>
+    </figure>
+
+    <button class="lightbox-nav lightbox-next" type="button" aria-label="Next photo">›</button>
   </div>
 
   <script src="content-v5.js"></script>
-  <script src="veritas-v5.js"></script>
+  <script src="veritas-v6.js"></script>
 </body>
 </html>

@@ -46,21 +46,47 @@
       "uk": "Ремонт інтер’єру з підлогою, фарбуванням, освітленням, оздобленням і столярними роботами."
     },
     "image": "projects/2026-08-dining-kitchen-renovation/hero.jpg"
-  } ,
-{
-  "id": "drywall-repair",
-  "image": "projects/2026-08-replacing-old-plaster-with-drywall/hero.jpg",
-  "title": {
-    "en": "Drywall Repair & Ceiling Restoration",
-    "es": "Reparación de paneles de yeso y restauración del techo",
-    "uk": "Ремонт гіпсокартону та відновлення стелі"
   },
-  "city": "Mentor, Ohio",
-  "category": "Drywall",
-  "description": {
-    "en": "Professional drywall repair, finishing and painting after water damage.",
-    "es": "Reparación profesional de paneles de yeso, acabado y pintura después de daños por agua.",
-    "uk": "Професійний ремонт гіпсокартону, шпаклювання та фарбування після пошкодження водою."
+  {
+    "id": "drywall-repair",
+    "image": "projects/2026-08-replacing-old-plaster-with-drywall/hero.jpg",
+    "gallery": [
+      {
+        "src": "projects/2026-08-replacing-old-plaster-with-drywall/before.jpg",
+        "label": {
+          "en": "Before",
+          "es": "Antes",
+          "uk": "До ремонту"
+        }
+      },
+      {
+        "src": "projects/2026-08-replacing-old-plaster-with-drywall/progress.jpg",
+        "label": {
+          "en": "Work in progress",
+          "es": "Trabajo en proceso",
+          "uk": "У процесі роботи"
+        }
+      },
+      {
+        "src": "projects/2026-08-replacing-old-plaster-with-drywall/hero.jpg",
+        "label": {
+          "en": "Completed result",
+          "es": "Resultado final",
+          "uk": "Готовий результат"
+        }
+      }
+    ],
+    "title": {
+      "en": "Drywall Repair & Ceiling Restoration",
+      "es": "Reparación de paneles de yeso y restauración del techo",
+      "uk": "Ремонт гіпсокартону та відновлення стелі"
+    },
+    "city": "Mentor, Ohio",
+    "category": "Drywall",
+    "description": {
+      "en": "Professional drywall repair, finishing and painting after water damage.",
+      "es": "Reparación profesional de paneles de yeso, acabado y pintura después de daños por agua.",
+      "uk": "Професійний ремонт гіпсокартону, шпаклювання та фарбування після пошкодження водою."
+    }
   }
-}
 ]

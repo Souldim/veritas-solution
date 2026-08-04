@@ -1,0 +1,58 @@
+VERITAS V6 — PROJECT PHOTO GALLERY
+
+WHAT THIS UPDATE DOES
+- Clicking a project opens its photo gallery.
+- Use the left/right arrows on screen.
+- Keyboard arrows also work.
+- The gallery shows Before / Work in progress / Completed result.
+- Press Escape or X to close.
+
+INSTALL
+Copy these four files into Documents/GitHub/veritas-solution:
+1. index.html
+2. veritas-v6.css
+3. veritas-v6.js
+4. projects.json
+
+Replace index.html and projects.json when Windows asks.
+Do NOT delete or replace your projects folder or photographs.
+
+Then in GitHub Desktop:
+Summary: Add project photo gallery
+Commit to main
+Push origin
+
+Open after 1–3 minutes:
+https://souldim.github.io/veritas-solution/?v=6#projects
+
+HOW TO ADD MULTIPLE PHOTOS TO ANOTHER PROJECT
+Add a gallery field inside that project:
+
+"gallery": [
+  {
+    "src": "projects/project-folder/before.jpg",
+    "label": {
+      "en": "Before",
+      "es": "Antes",
+      "uk": "До ремонту"
+    }
+  },
+  {
+    "src": "projects/project-folder/progress.jpg",
+    "label": {
+      "en": "Work in progress",
+      "es": "Trabajo en proceso",
+      "uk": "У процесі роботи"
+    }
+  },
+  {
+    "src": "projects/project-folder/hero.jpg",
+    "label": {
+      "en": "Completed result",
+      "es": "Resultado final",
+      "uk": "Готовий результат"
+    }
+  }
+],
+
+The main card still uses the separate "image" field.
