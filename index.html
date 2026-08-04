@@ -1,266 +1,153 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Veritas Solution LLC provides residential and commercial handyman services across Greater Cleveland, including door and window repair, drywall, trim, painting, furniture assembly, property maintenance, and general repairs." />
-  <meta name="theme-color" content="#0d1b2a" />
-  <title>Veritas Solution LLC | Handyman Services in Greater Cleveland</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="Veritas Solution LLC provides residential and commercial handyman services throughout Greater Cleveland.">
+  <meta name="theme-color" content="#102333">
+  <title>Veritas Solution LLC | Greater Cleveland Handyman</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Merriweather:wght@700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <header class="site-header">
-    <div class="container nav-wrap">
-      <a class="brand" href="#top" aria-label="Veritas Solution LLC home">
-        <svg class="brand-mark" viewBox="0 0 64 64" aria-hidden="true">
-          <path d="M8 29 32 9l24 20v25H39V38H25v16H8Z" fill="none" stroke="currentColor" stroke-width="4" stroke-linejoin="round"/>
-          <path d="m19 47 26-26M20 22l25 25" stroke="currentColor" stroke-width="3.5" stroke-linecap="round"/>
-        </svg>
-        <span>
-          <strong>VERITAS</strong>
-          <small>SOLUTION LLC</small>
-        </span>
+  <header class="topbar">
+    <div class="container nav">
+      <a class="brand" href="#home" aria-label="Veritas Solution LLC">
+        <span class="brand-icon">⌂</span>
+        <span><strong>VERITAS</strong><small>SOLUTION LLC</small></span>
       </a>
-
-      <button class="menu-button" aria-label="Open navigation" aria-expanded="false">☰</button>
-
-      <nav class="main-nav" aria-label="Main navigation">
-        <a href="#services">Services</a>
-        <a href="#commercial">Commercial</a>
-        <a href="#gallery">Work</a>
-        <a href="#about">About</a>
-        <a href="#contact" class="nav-cta">Request Estimate</a>
+      <button class="menu-toggle" aria-label="Open menu">☰</button>
+      <nav class="menu">
+        <a href="#services" data-i18n="nav_services">Services</a>
+        <a href="#projects" data-i18n="nav_projects">Projects</a>
+        <a href="#commercial" data-i18n="nav_commercial">Commercial</a>
+        <a href="#about" data-i18n="nav_about">About</a>
+        <a href="#contact" class="nav-cta" data-i18n="nav_estimate">Request Estimate</a>
+        <div class="languages" aria-label="Language">
+          <button data-lang="en" class="active">EN</button>
+          <button data-lang="es">ES</button>
+          <button data-lang="uk">UA</button>
+        </div>
       </nav>
     </div>
   </header>
 
-  <main id="top">
+  <main id="home">
     <section class="hero">
-      <div class="hero-overlay"></div>
-      <div class="container hero-grid">
+      <div class="hero-shade"></div>
+      <div class="container hero-content">
         <div class="hero-copy">
-          <div class="eyebrow">Residential & Commercial Handyman Services</div>
-          <h1>Reliable repairs.<br>Professional results.</h1>
-          <p>
-            Quality handyman service for homeowners, landlords, property managers,
-            investors, and businesses throughout Greater Cleveland.
-          </p>
+          <span class="eyebrow" data-i18n="hero_eyebrow">Residential • Commercial • Property Maintenance</span>
+          <h1 data-i18n="hero_title">Professional handyman services in Greater Cleveland</h1>
+          <p data-i18n="hero_text">Reliable repairs, installations, and property maintenance with clear communication and attention to detail.</p>
           <div class="hero-actions">
-            <a class="button primary" href="tel:+12162144720">Call 216-214-4720</a>
-            <a class="button secondary" href="#contact">Request an Estimate</a>
+            <a class="btn gold" href="tel:+12162144720" data-i18n="call_now">Call Now</a>
+            <a class="btn outline" href="sms:+12162144720?body=Hello%20Veritas%20Solution%20LLC,%20I%20would%20like%20an%20estimate." data-i18n="text_photos">Text Project Photos</a>
           </div>
-          <div class="trust-row">
-            <span>Clear communication</span>
-            <span>Honest pricing</span>
-            <span>Quality workmanship</span>
+          <div class="hero-points">
+            <span data-i18n="point_1">Honest pricing</span>
+            <span data-i18n="point_2">Quality workmanship</span>
+            <span data-i18n="point_3">Residential & commercial</span>
           </div>
         </div>
-
-        <aside class="estimate-card">
-          <span class="card-kicker">Need help with a project?</span>
-          <h2>Tell us what needs to be done.</h2>
-          <p>Send photos and a short description for a faster estimate.</p>
-          <a class="button primary full" href="sms:+12162144720?body=Hello%20Veritas%20Solution%20LLC,%20I%20would%20like%20an%20estimate%20for:">Text Photos</a>
-          <a class="text-link" href="tel:+12162144720">Or call 216-214-4720</a>
-        </aside>
       </div>
     </section>
 
-    <section class="section services-section" id="services">
+    <section class="quick-strip">
+      <div class="container quick-grid">
+        <article><strong data-i18n="quick_residential">Residential</strong><span data-i18n="quick_residential_text">Repairs, upgrades, and installations</span></article>
+        <article><strong data-i18n="quick_commercial">Commercial</strong><span data-i18n="quick_commercial_text">Maintenance for offices and properties</span></article>
+        <article><strong data-i18n="quick_rental">Rental Properties</strong><span data-i18n="quick_rental_text">Turnovers, punch lists, and repairs</span></article>
+      </div>
+    </section>
+
+    <section class="section" id="services">
       <div class="container">
-        <div class="section-heading">
-          <div>
-            <div class="eyebrow dark">What We Do</div>
-            <h2>Handyman services for everyday repairs and larger projects</h2>
-          </div>
-          <p>
-            Practical solutions for residential and commercial properties,
-            completed with attention to detail and respect for your space.
-          </p>
+        <div class="section-head">
+          <span class="eyebrow dark" data-i18n="services_eyebrow">Our Services</span>
+          <h2 data-i18n="services_title">Practical solutions for homes and businesses</h2>
+          <p data-i18n="services_text">Focused handyman services for common repairs, installations, and property improvements.</p>
         </div>
-
-        <div class="service-grid">
-          <article class="service-card">
-            <div class="service-icon">🚪</div>
-            <h3>Door Installation & Repair</h3>
-            <p>Interior doors, exterior doors, storm doors, frames, hardware, locks, and adjustments.</p>
-          </article>
-          <article class="service-card">
-            <div class="service-icon">🪟</div>
-            <h3>Window Repair</h3>
-            <p>Window hardware, storm windows, screens, caulking, trim, and minor installation work.</p>
-          </article>
-          <article class="service-card">
-            <div class="service-icon">🧱</div>
-            <h3>Drywall & Ceiling Repair</h3>
-            <p>Patching, damaged drywall replacement, surface preparation, and finish repairs.</p>
-          </article>
-          <article class="service-card">
-            <div class="service-icon">📐</div>
-            <h3>Trim & Baseboards</h3>
-            <p>Installation and repair of baseboards, casing, molding, shelving, and finish carpentry.</p>
-          </article>
-          <article class="service-card">
-            <div class="service-icon">🪑</div>
-            <h3>Furniture Assembly</h3>
-            <p>Furniture, shelving, cabinets, storage systems, and other ready-to-assemble products.</p>
-          </article>
-          <article class="service-card">
-            <div class="service-icon">🛠️</div>
-            <h3>General Repairs</h3>
-            <p>Home maintenance, minor plumbing fixtures, caulking, hardware installation, and repairs.</p>
-          </article>
-        </div>
+        <div id="services-grid" class="cards"></div>
       </div>
     </section>
 
-    <section class="section commercial-section" id="commercial">
+    <section class="section projects-section" id="projects">
+      <div class="container">
+        <div class="section-head split">
+          <div>
+            <span class="eyebrow dark" data-i18n="projects_eyebrow">Featured Work</span>
+            <h2 data-i18n="projects_title">Real projects completed by Veritas Solution LLC</h2>
+          </div>
+          <p data-i18n="projects_text">These photographs show actual completed work. New projects can be added without changing the page layout.</p>
+        </div>
+        <div id="projects-grid" class="projects-grid"></div>
+      </div>
+    </section>
+
+    <section class="section commercial" id="commercial">
       <div class="container commercial-grid">
         <div>
-          <div class="eyebrow">Commercial & Rental Properties</div>
-          <h2>Dependable support for property managers and business owners</h2>
-          <p>
-            Veritas Solution LLC works with landlords, real estate investors,
-            property managers, office managers, and commercial property owners.
-          </p>
-          <ul class="check-list">
-            <li>Rental turnover repairs</li>
-            <li>Office and retail maintenance</li>
-            <li>Punch-list completion</li>
-            <li>Door, drywall, trim, and hardware repairs</li>
-            <li>Photo updates and clear communication</li>
-          </ul>
-          <a class="button light" href="#contact">Discuss Ongoing Maintenance</a>
+          <span class="eyebrow" data-i18n="commercial_eyebrow">Commercial & Property Maintenance</span>
+          <h2 data-i18n="commercial_title">Reliable support for property managers and business owners</h2>
+          <p data-i18n="commercial_text">We provide maintenance and repair support for rental properties, offices, retail spaces, investors, and commercial property owners.</p>
+          <ul id="commercial-list"></ul>
+          <a class="btn light" href="sms:+12162144720?body=Hello%20Veritas%20Solution%20LLC,%20I%20need%20commercial%20property%20maintenance." data-i18n="commercial_cta">Discuss Property Maintenance</a>
         </div>
-        <div class="commercial-panel">
-          <div class="panel-stat">
-            <strong>Residential</strong>
-            <span>Home repairs and installations</span>
-          </div>
-          <div class="panel-stat">
-            <strong>Commercial</strong>
-            <span>Property and office maintenance</span>
-          </div>
-          <div class="panel-stat">
-            <strong>Rental</strong>
-            <span>Turnovers and punch lists</span>
-          </div>
-        </div>
+        <div class="commercial-photo" role="img" aria-label="Completed dining and kitchen renovation"></div>
       </div>
     </section>
 
-    <section class="section gallery-section" id="gallery">
-      <div class="container">
-        <div class="section-heading">
-          <div>
-            <div class="eyebrow dark">Recent Work</div>
-            <h2>Built to showcase your real project photos</h2>
-          </div>
-          <p>
-            Replace these sample blocks with your before-and-after photos.
-            Instructions are included in the README file.
-          </p>
-        </div>
-
-        <div class="gallery-grid">
-          <figure class="gallery-item photo-one"><figcaption>Door installation & repair</figcaption></figure>
-          <figure class="gallery-item photo-two"><figcaption>Drywall & ceiling repairs</figcaption></figure>
-          <figure class="gallery-item photo-three"><figcaption>Trim, baseboards & finish work</figcaption></figure>
-          <figure class="gallery-item photo-four"><figcaption>Window and storm-door projects</figcaption></figure>
-          <figure class="gallery-item photo-five"><figcaption>Property maintenance</figcaption></figure>
-          <figure class="gallery-item photo-six"><figcaption>Furniture & shelving assembly</figcaption></figure>
-        </div>
-      </div>
-    </section>
-
-    <section class="section about-section" id="about">
+    <section class="section about" id="about">
       <div class="container about-grid">
-        <div class="about-badge">
-          <span>VERITAS</span>
-          <strong>Work you can trust.</strong>
-        </div>
+        <div class="about-photo"></div>
         <div>
-          <div class="eyebrow dark">About Veritas Solution LLC</div>
-          <h2>Professional handyman service with straightforward communication</h2>
-          <p>
-            We provide reliable residential and commercial handyman services
-            throughout the Greater Cleveland area. Every project starts with a
-            clear understanding of the work, realistic expectations, and careful
-            attention to quality.
-          </p>
-          <p>
-            Whether you need a single repair, help preparing a rental property,
-            or ongoing maintenance support, Veritas Solution LLC is ready to help.
-          </p>
+          <span class="eyebrow dark" data-i18n="about_eyebrow">About Veritas</span>
+          <h2 data-i18n="about_title">Professional service with straightforward communication</h2>
+          <p data-i18n="about_text_1">Veritas Solution LLC provides residential and commercial handyman services throughout Greater Cleveland.</p>
+          <p data-i18n="about_text_2">We work with homeowners, landlords, property managers, investors, and businesses, with a focus on dependable workmanship and clear expectations.</p>
         </div>
       </div>
     </section>
 
-    <section class="section service-area-section">
+    <section class="section areas">
       <div class="container">
-        <div class="eyebrow dark">Service Area</div>
-        <h2>Serving Greater Cleveland</h2>
-        <p class="area-copy">
-          Parma Heights, Parma, Cleveland, Lakewood, Rocky River, Fairview Park,
-          Brook Park, Middleburg Heights, Strongsville, North Royalton, Seven Hills,
-          Independence, Berea, North Olmsted, Westlake, Bay Village, Avon, Avon Lake,
-          Brecksville, Solon, and nearby communities.
-        </p>
+        <span class="eyebrow dark" data-i18n="areas_eyebrow">Service Area</span>
+        <h2 data-i18n="areas_title">Serving Greater Cleveland</h2>
+        <div id="areas-list" class="area-list"></div>
       </div>
     </section>
 
-    <section class="section contact-section" id="contact">
+    <section class="section contact" id="contact">
       <div class="container contact-grid">
         <div>
-          <div class="eyebrow">Request an Estimate</div>
-          <h2>Have a repair or improvement project?</h2>
-          <p>
-            Call or text with the property location, a brief description, and photos.
-            Commercial and residential inquiries are welcome.
-          </p>
-          <div class="contact-lines">
-            <a href="tel:+12162144720"><strong>Phone:</strong> 216-214-4720</a>
-            <a href="sms:+12162144720"><strong>Text:</strong> Send project photos</a>
-          </div>
+          <span class="eyebrow" data-i18n="contact_eyebrow">Request an Estimate</span>
+          <h2 data-i18n="contact_title">Tell us about your project</h2>
+          <p data-i18n="contact_text">For a faster estimate, text the property location, a short description, and clear photos of the work.</p>
         </div>
-
-        <form class="contact-form" action="mailto:" method="post" enctype="text/plain" onsubmit="return prepareEmail(event)">
-          <label>
-            Name
-            <input id="name" name="name" required autocomplete="name" />
-          </label>
-          <label>
-            Phone
-            <input id="phone" name="phone" required autocomplete="tel" />
-          </label>
-          <label>
-            City
-            <input id="city" name="city" autocomplete="address-level2" />
-          </label>
-          <label>
-            Project details
-            <textarea id="message" name="message" rows="5" required placeholder="Describe the work you need completed..."></textarea>
-          </label>
-          <button class="button primary full" type="submit">Send Request</button>
-          <small>This button opens your email app. Add your business email in script.js when ready.</small>
-        </form>
+        <div class="contact-card">
+          <a class="contact-action" href="tel:+12162144720"><span>☎</span><div><small data-i18n="phone_label">Phone</small><strong>216-214-4720</strong></div></a>
+          <a class="contact-action" href="sms:+12162144720?body=Hello%20Veritas%20Solution%20LLC,%20I%20would%20like%20an%20estimate."><span>✉</span><div><small data-i18n="text_label">Text</small><strong data-i18n="send_photos">Send project photos</strong></div></a>
+        </div>
       </div>
     </section>
   </main>
 
   <footer>
-    <div class="container footer-wrap">
-      <div>
-        <strong>Veritas Solution LLC</strong>
-        <span>Residential & Commercial Handyman Services</span>
-      </div>
-      <div>© <span id="year"></span> Veritas Solution LLC. All rights reserved.</div>
+    <div class="container footer">
+      <div><strong>Veritas Solution LLC</strong><span data-i18n="footer_subtitle">Residential & Commercial Handyman Services</span></div>
+      <div>© <span id="year"></span> Veritas Solution LLC</div>
     </div>
   </footer>
 
+  <div class="lightbox" id="lightbox" aria-hidden="true">
+    <button aria-label="Close image">×</button>
+    <img alt="">
+  </div>
+
+  <script src="content.js"></script>
   <script src="script.js"></script>
 </body>
 </html>
