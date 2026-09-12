@@ -130,5 +130,39 @@
       "es": "Se reparó y restauró la barandilla exterior, incluido el reemplazo de la madera dañada, la preparación de la superficie, la imprimación y la pintura.",
       "uk": "Відремонтовано та відреставровано зовнішнє огородження із заміною пошкодженої деревини, підготовкою поверхні, ґрунтуванням та фарбуванням."
     }
+  },
+  {
+    "id": "project-2026-09-12-150523",
+    "image": "projects/2026-09-12-150523-project/hero.jpg",
+    "gallery": [
+      {
+        "src": "projects/2026-09-12-150523-project/before1.jpg",
+        "label": {
+          "en": "Before",
+          "es": "Antes",
+          "uk": "До ремонту"
+        }
+      },
+      {
+        "src": "projects/2026-09-12-150523-project/hero.jpg",
+        "label": {
+          "en": "Completed result",
+          "es": "Resultado final",
+          "uk": "Готовий результат"
+        }
+      }
+    ],
+    "title": {
+      "en": "Prepared and repainted the front door, including surface...",
+      "es": "Preparé y repinté la puerta de entrada, incluida la superficie...",
+      "uk": "Підготовлено та перефарбовано вхідні двері, в т.ч."
+    },
+    "city": "Greater Cleveland, Ohio",
+    "category": "General Repair",
+    "description": {
+      "en": "Prepared and repainted the front door, including surface preparation, sanding, hardware removal, priming, and painting for a clean, refreshed finish.",
+      "es": "Preparé y repinté la puerta de entrada, incluida la preparación de la superficie, el lijado, la extracción de herrajes, la imprimación y la pintura para obtener un acabado limpio y renovado.",
+      "uk": "Підготовлено та перефарбовано вхідні двері, включаючи підготовку поверхні, шліфування, видалення фурнітури, ґрунтування та фарбування для отримання чистого оновленого покриття."
+    }
   }
 ]
