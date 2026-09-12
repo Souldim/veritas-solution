@@ -90,56 +90,6 @@
     }
   },
   {
-    "id": "project-2026-09-12-141457",
-    "image": "projects/2026-09-12-141457-project/hero.jpg",
-    "gallery": [
-      {
-        "src": "projects/2026-09-12-141457-project/before1.jpg",
-        "label": {
-          "en": "Before",
-          "es": "Antes",
-          "uk": "До ремонту"
-        }
-      },
-      {
-        "src": "projects/2026-09-12-141457-project/before2.jpg",
-        "label": {
-          "en": "Before",
-          "es": "Antes",
-          "uk": "До ремонту"
-        }
-      },
-      {
-        "src": "projects/2026-09-12-141457-project/before3.jpg",
-        "label": {
-          "en": "Before",
-          "es": "Antes",
-          "uk": "До ремонту"
-        }
-      },
-      {
-        "src": "projects/2026-09-12-141457-project/hero.jpg",
-        "label": {
-          "en": "Completed result",
-          "es": "Resultado final",
-          "uk": "Готовий результат"
-        }
-      }
-    ],
-    "title": {
-      "en": "Prepared and repainted the front door, including surface...",
-      "es": "Prepared and repainted the front door, including surface...",
-      "uk": "Prepared and repainted the front door, including surface..."
-    },
-    "city": "Greater Cleveland, Ohio",
-    "category": "General Repair",
-    "description": {
-      "en": "Prepared and repainted the front door, including surface preparation and hardware removal for a cleaner finish.",
-      "es": "Prepared and repainted the front door, including surface preparation and hardware removal for a cleaner finish.",
-      "uk": "Prepared and repainted the front door, including surface preparation and hardware removal for a cleaner finish."
-    }
-  },
-  {
     "id": "project-2026-09-12-143711",
     "image": "projects/2026-09-12-143711-project/hero.jpg",
     "gallery": [
