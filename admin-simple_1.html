@@ -1,0 +1,387 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Veritas Project Publisher</title>
+<style>
+:root{--navy:#102333;--navy2:#1c394d;--gold:#b78a35;--paper:#f4f6f7;--text:#172430;--muted:#657582;--border:#dfe5e8;--green:#176238;--red:#912f2f}
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,Helvetica,sans-serif;background:var(--paper);color:var(--text);line-height:1.5}
+header{background:linear-gradient(135deg,var(--navy),var(--navy2));color:#fff;padding:26px 20px}
+header .wrap,main{width:min(820px,calc(100% - 28px));margin:auto}
+h1{margin:0 0 5px;font-size:28px}
+header p{margin:0;color:#d7e1e7}
+main{padding:26px 0 45px}
+.panel{background:#fff;border:1px solid var(--border);border-radius:14px;padding:22px;margin-bottom:18px}
+.security{border-left:5px solid var(--gold)}
+h2{margin:0 0 15px;color:var(--navy);font-size:21px}
+label{display:block;font-weight:700;font-size:14px;color:#2c3f4e}
+input,textarea{width:100%;margin-top:6px;border:1px solid #cbd5db;border-radius:8px;padding:11px 12px;font:inherit;background:#fff}
+textarea{min-height:110px;resize:vertical}
+.hint{font-size:13px;color:var(--muted);margin:6px 0 0}
+.stage{border:1px dashed #b9c5cb;border-radius:10px;padding:16px;margin-top:12px}
+.stage strong{color:var(--navy)}
+.actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:14px}
+button{border:0;border-radius:8px;padding:13px 19px;font-weight:800;cursor:pointer;font-size:15px}
+.primary{background:var(--gold);color:#fff}
+.secondary{background:var(--navy);color:#fff}
+.ghost{background:#e9eef1;color:var(--navy)}
+button:disabled{opacity:.5;cursor:not-allowed}
+.status{margin-top:14px;padding:13px;border-radius:8px;display:none;white-space:pre-wrap}
+.status.ok{display:block;background:#e9f7ef;color:var(--green)}
+.status.error{display:block;background:#fdecec;color:var(--red)}
+.status.busy{display:block;background:#eaf2f8;color:#244c66}
+.progress{height:10px;background:#e8edef;border-radius:99px;overflow:hidden;margin-top:14px;display:none}
+.progress span{display:block;height:100%;width:0;background:var(--gold);transition:width .25s}
+.smallgrid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.smallgrid input{font-size:14px}
+code{background:#edf1f3;padding:2px 5px;border-radius:4px}
+.badge{display:inline-block;background:#e9f7ef;color:#176238;padding:3px 8px;border-radius:999px;font-size:12px;font-weight:700;margin-left:6px}
+@media(max-width:650px){.smallgrid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<header><div class="wrap">
+<h1>Veritas Project Publisher</h1>
+<p>Описание + фото ДО + фото ПОСЛЕ. Перевод EN / ES / UK создаётся автоматически.</p>
+</div></header>
+
+<main>
+<section class="panel security">
+<h2>1. Подключение к GitHub</h2>
+<p class="hint">Токен не сохраняется и остаётся только в этой вкладке до её закрытия.</p>
+<div class="smallgrid">
+<label>GitHub owner<input id="owner" value="souldim"></label>
+<label>Repository<input id="repo" value="veritas-solution"></label>
+<label>Branch<input id="branch" value="main"></label>
+<label>Fine-grained token<input id="token" type="password" autocomplete="off" placeholder="github_pat_..."></label>
+</div>
+<div class="actions"><button id="testBtn" class="secondary" type="button">Проверить подключение</button></div>
+<div id="connectStatus" class="status" aria-live="polite"></div>
+</section>
+
+<section class="panel">
+<h2>2. Описание работы <span class="badge">AUTO TRANSLATE</span></h2>
+<label>Описание — English
+<textarea id="description" placeholder="Например: Prepared and repainted the front door, including surface preparation and hardware removal for a cleaner finish."></textarea>
+</label>
+<p class="hint">Ты пишешь только по-английски. Перед публикацией страница автоматически создаст испанскую и украинскую версии. Если перевод не сработает, проект НЕ будет опубликован.</p>
+</section>
+
+<section class="panel">
+<h2>3. Фотографии</h2>
+<div class="stage"><strong>ДО работы</strong>
+<input id="beforeFiles" type="file" accept="image/jpeg,image/png,image/webp" multiple>
+<p class="hint">Добавь одно или несколько фото до начала работы.</p></div>
+
+<div class="stage"><strong>ПОСЛЕ работы</strong>
+<input id="afterFiles" type="file" accept="image/jpeg,image/png,image/webp" multiple>
+<p class="hint">Первое фото в этом блоке станет главным фото проекта.</p></div>
+</section>
+
+<section class="panel">
+<h2>4. Опубликовать</h2>
+<div class="actions">
+<button id="publishBtn" class="primary" type="button">Publish Project</button>
+<button id="resetBtn" class="ghost" type="button">Очистить</button>
+</div>
+<div class="progress" id="progress"><span id="progressBar"></span></div>
+<div id="status" class="status" aria-live="polite"></div>
+<p class="hint">Будет создан один Git-коммит: фотографии, <code>info.json</code> и обновлённый <code>projects.json</code>.</p>
+</section>
+</main>
+
+<script>
+const $=id=>document.getElementById(id);
+const API='https://api.github.com';
+const API_VERSION='2022-11-28';
+
+function values(){
+  return{
+    owner:$('owner').value.trim(),
+    repo:$('repo').value.trim(),
+    branch:$('branch').value.trim()
+  };
+}
+function authHeaders(){
+  const token=$('token').value.trim();
+  if(!token) throw new Error('Введи GitHub token.');
+  return{
+    'Accept':'application/vnd.github+json',
+    'X-GitHub-Api-Version':API_VERSION,
+    'Authorization':`Bearer ${token}`
+  };
+}
+async function api(path,options={}){
+  const response=await fetch(`${API}${path}`,{
+    ...options,
+    headers:{...authHeaders(),...(options.headers||{})}
+  });
+  if(!response.ok){
+    let d='';
+    try{const x=await response.json();d=x.message||JSON.stringify(x)}catch{}
+    throw new Error(`GitHub API ${response.status}: ${d||response.statusText}`);
+  }
+  return response.status===204?null:response.json();
+}
+function setStatus(id,text,type='busy'){
+  const el=$(id);
+  el.textContent=text;
+  el.className=`status ${type}`;
+}
+function setProgress(n){
+  $('progress').style.display='block';
+  $('progressBar').style.width=`${n}%`;
+}
+function utf8ToBase64(text){
+  const bytes=new TextEncoder().encode(text);
+  let binary='';
+  bytes.forEach(b=>binary+=String.fromCharCode(b));
+  return btoa(binary);
+}
+function base64ToUtf8(base64){
+  const binary=atob(base64.replace(/\n/g,''));
+  const bytes=Uint8Array.from(binary,c=>c.charCodeAt(0));
+  return new TextDecoder().decode(bytes);
+}
+function fileToBase64(file){
+  return new Promise((resolve,reject)=>{
+    const r=new FileReader();
+    r.onload=()=>resolve(String(r.result).split(',')[1]);
+    r.onerror=()=>reject(new Error(`Не удалось прочитать ${file.name}`));
+    r.readAsDataURL(file);
+  });
+}
+function ext(file){
+  const n=file.name.toLowerCase();
+  if(n.endsWith('.png'))return'png';
+  if(n.endsWith('.webp'))return'webp';
+  return'jpg';
+}
+async function createBlob(owner,repo,content,encoding){
+  return api(`/repos/${owner}/${repo}/git/blobs`,{
+    method:'POST',
+    body:JSON.stringify({content,encoding}),
+    headers:{'Content-Type':'application/json'}
+  });
+}
+async function currentProjects(owner,repo,branch){
+  const data=await api(`/repos/${owner}/${repo}/contents/projects.json?ref=${encodeURIComponent(branch)}`);
+  return JSON.parse(base64ToUtf8(data.content));
+}
+function stamp(){
+  const d=new Date();
+  const p=n=>String(n).padStart(2,'0');
+  return `${d.getFullYear()}-${p(d.getMonth()+1)}-${p(d.getDate())}-${p(d.getHours())}${p(d.getMinutes())}${p(d.getSeconds())}`;
+}
+function titleFromDescription(text){
+  const cleaned=text.replace(/\s+/g,' ').trim();
+  const first=cleaned.split(/[.!?]/)[0].trim();
+  if(!first)return'Recent Project';
+  return first.length<=60?first:first.slice(0,57).trim()+'...';
+}
+
+// Public translation with two fallbacks.
+// If both services fail, publishing stops so untranslated text is never saved.
+async function translateGoogle(text,target){
+  const url='https://translate.googleapis.com/translate_a/single?client=gtx&sl=en&tl='+
+    encodeURIComponent(target)+'&dt=t&q='+encodeURIComponent(text);
+  const r=await fetch(url);
+  if(!r.ok) throw new Error('Google Translate unavailable');
+  const data=await r.json();
+  const out=(data[0]||[]).map(x=>x && x[0] ? x[0] : '').join('').trim();
+  if(!out) throw new Error('Empty Google translation');
+  return out;
+}
+async function translateMyMemory(text,target){
+  const url='https://api.mymemory.translated.net/get?q='+encodeURIComponent(text)+
+    '&langpair=en%7C'+encodeURIComponent(target);
+  const r=await fetch(url);
+  if(!r.ok) throw new Error('MyMemory unavailable');
+  const data=await r.json();
+  const out=(data && data.responseData && data.responseData.translatedText || '').trim();
+  if(!out) throw new Error('Empty MyMemory translation');
+  return out;
+}
+async function translateText(text,target){
+  try{return await translateGoogle(text,target)}
+  catch(e1){
+    try{return await translateMyMemory(text,target)}
+    catch(e2){throw new Error(`Не удалось автоматически перевести на ${target.toUpperCase()}. Попробуй ещё раз позже.`)}
+  }
+}
+
+$('testBtn').addEventListener('click',async()=>{
+  try{
+    setStatus('connectStatus','Проверяю доступ…','busy');
+    const {owner,repo,branch}=values();
+    const ref=await api(`/repos/${owner}/${repo}/git/ref/heads/${encodeURIComponent(branch)}`);
+    setStatus('connectStatus',`Подключение работает.\nТекущий commit: ${ref.object.sha.slice(0,10)}`,'ok');
+  }catch(e){
+    setStatus('connectStatus',e.message,'error');
+  }
+});
+
+$('publishBtn').addEventListener('click',async()=>{
+  const btn=$('publishBtn');
+  btn.disabled=true;
+  try{
+    setProgress(3);
+    setStatus('status','Проверяю данные…','busy');
+
+    const {owner,repo,branch}=values();
+    const descriptionEn=$('description').value.trim();
+    if(!descriptionEn) throw new Error('Добавь описание работы.');
+
+    const before=Array.from($('beforeFiles').files);
+    const after=Array.from($('afterFiles').files);
+    if(!before.length) throw new Error('Добавь хотя бы одно фото ДО работы.');
+    if(!after.length) throw new Error('Добавь хотя бы одно фото ПОСЛЕ работы.');
+
+    setProgress(6);
+    setStatus('status','Перевожу описание на Español и Українська…','busy');
+
+    const [descriptionEs,descriptionUk]=await Promise.all([
+      translateText(descriptionEn,'es'),
+      translateText(descriptionEn,'uk')
+    ]);
+
+    const titleEn=titleFromDescription(descriptionEn);
+    const [titleEs,titleUk]=await Promise.all([
+      translateText(titleEn,'es'),
+      translateText(titleEn,'uk')
+    ]);
+
+    const key=stamp();
+    const folder=`${key}-project`;
+    const projectId=`project-${key}`;
+
+    setProgress(12);
+    setStatus('status','Перевод готов. Получаю текущую версию сайта…','busy');
+
+    const ref=await api(`/repos/${owner}/${repo}/git/ref/heads/${encodeURIComponent(branch)}`);
+    const parentSha=ref.object.sha;
+    const commit=await api(`/repos/${owner}/${repo}/git/commits/${parentSha}`);
+    const baseTreeSha=commit.tree.sha;
+
+    const projects=await currentProjects(owner,repo,branch);
+    if(!Array.isArray(projects)) throw new Error('projects.json имеет неверный формат.');
+
+    const labels={
+      before:{en:'Before',es:'Antes',uk:'До ремонту'},
+      after:{en:'Completed result',es:'Resultado final',uk:'Готовий результат'}
+    };
+
+    const items=[];
+    before.forEach((file,i)=>{
+      items.push({
+        file,
+        path:`projects/${folder}/before${i+1}.${ext(file)}`,
+        label:labels.before
+      });
+    });
+
+    const hero={
+      file:after[0],
+      path:`projects/${folder}/hero.${ext(after[0])}`,
+      label:labels.after
+    };
+    items.push(hero);
+
+    after.slice(1).forEach((file,i)=>{
+      items.push({
+        file,
+        path:`projects/${folder}/after${i+2}.${ext(file)}`,
+        label:labels.after
+      });
+    });
+
+    const project={
+      id:projectId,
+      image:hero.path,
+      gallery:items.map(x=>({src:x.path,label:x.label})),
+      title:{en:titleEn,es:titleEs,uk:titleUk},
+      city:'Greater Cleveland, Ohio',
+      category:'General Repair',
+      description:{en:descriptionEn,es:descriptionEs,uk:descriptionUk}
+    };
+
+    projects.push(project);
+
+    setProgress(18);
+    setStatus('status',`Загружаю фотографии: 0 из ${items.length}…`,'busy');
+    const tree=[];
+
+    for(let i=0;i<items.length;i++){
+      const item=items[i];
+      const blob=await createBlob(owner,repo,await fileToBase64(item.file),'base64');
+      tree.push({path:item.path,mode:'100644',type:'blob',sha:blob.sha});
+      setProgress(18+Math.round(((i+1)/items.length)*50));
+      setStatus('status',`Загружаю фотографии: ${i+1} из ${items.length}…`,'busy');
+    }
+
+    setProgress(72);
+    setStatus('status','Создаю данные проекта…','busy');
+
+    const infoBlob=await createBlob(owner,repo,utf8ToBase64(JSON.stringify(project,null,2)),'base64');
+    tree.push({path:`projects/${folder}/info.json`,mode:'100644',type:'blob',sha:infoBlob.sha});
+
+    const projectsBlob=await createBlob(owner,repo,utf8ToBase64(JSON.stringify(projects,null,2)),'base64');
+    tree.push({path:'projects.json',mode:'100644',type:'blob',sha:projectsBlob.sha});
+
+    setProgress(82);
+    setStatus('status','Создаю Git tree…','busy');
+
+    const newTree=await api(`/repos/${owner}/${repo}/git/trees`,{
+      method:'POST',
+      body:JSON.stringify({base_tree:baseTreeSha,tree}),
+      headers:{'Content-Type':'application/json'}
+    });
+
+    setProgress(89);
+    setStatus('status','Создаю commit…','busy');
+
+    const newCommit=await api(`/repos/${owner}/${repo}/git/commits`,{
+      method:'POST',
+      body:JSON.stringify({
+        message:`Add project ${projectId}`,
+        tree:newTree.sha,
+        parents:[parentSha]
+      }),
+      headers:{'Content-Type':'application/json'}
+    });
+
+    setProgress(95);
+    setStatus('status','Публикую на main…','busy');
+
+    await api(`/repos/${owner}/${repo}/git/refs/heads/${encodeURIComponent(branch)}`,{
+      method:'PATCH',
+      body:JSON.stringify({sha:newCommit.sha,force:false}),
+      headers:{'Content-Type':'application/json'}
+    });
+
+    setProgress(100);
+    setStatus('status',
+      `Готово! Проект опубликован на 3 языках.\nID: ${projectId}\nПодожди 1–2 минуты и обнови сайт.`,
+      'ok'
+    );
+
+  }catch(e){
+    setStatus('status',e.message,'error');
+  }finally{
+    btn.disabled=false;
+  }
+});
+
+$('resetBtn').addEventListener('click',()=>{
+  $('description').value='';
+  $('beforeFiles').value='';
+  $('afterFiles').value='';
+  $('progress').style.display='none';
+  $('status').className='status';
+  $('status').textContent='';
+});
+</script>
+</body>
+</html>
