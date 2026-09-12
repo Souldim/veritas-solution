@@ -1,0 +1,42 @@
+{
+  "id": "project-2026-09-12-143711",
+  "image": "projects/2026-09-12-143711-project/hero.jpg",
+  "gallery": [
+    {
+      "src": "projects/2026-09-12-143711-project/before1.jpg",
+      "label": {
+        "en": "Before",
+        "es": "Antes",
+        "uk": "До ремонту"
+      }
+    },
+    {
+      "src": "projects/2026-09-12-143711-project/before2.jpg",
+      "label": {
+        "en": "Before",
+        "es": "Antes",
+        "uk": "До ремонту"
+      }
+    },
+    {
+      "src": "projects/2026-09-12-143711-project/hero.jpg",
+      "label": {
+        "en": "Completed result",
+        "es": "Resultado final",
+        "uk": "Готовий результат"
+      }
+    }
+  ],
+  "title": {
+    "en": "Repaired and restored the exterior railing, including rep...",
+    "es": "Reparada y restaurada barandilla exterior, incluida rep...",
+    "uk": "Відремонтовано та відновлено зовнішнє огородження, в т.ч."
+  },
+  "city": "Greater Cleveland, Ohio",
+  "category": "General Repair",
+  "description": {
+    "en": "Repaired and restored the exterior railing, including replacement of damaged wood, surface preparation, priming, and painting.",
+    "es": "Se reparó y restauró la barandilla exterior, incluido el reemplazo de la madera dañada, la preparación de la superficie, la imprimación y la pintura.",
+    "uk": "Відремонтовано та відреставровано зовнішнє огородження із заміною пошкодженої деревини, підготовкою поверхні, ґрунтуванням та фарбуванням."
+  }
+}
